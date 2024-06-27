@@ -1,0 +1,29 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: PROWLER
+  datasource:
+    url: jdbc:postgresql://localhost:5432/prowler
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    openInView: false
+    show_sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+jwt_configs:
+  secret: ${APP_JWT_SECRET}
+  access_token_validity_ms: ${APP_JWT_ACCESS_VALIDITY_MS}
+  refresh_token_validity_ms: ${APP_JWT_REFRESH_VALIDITY_MS}
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        security: info
