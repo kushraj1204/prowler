@@ -12,10 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +31,8 @@ public class AuthService {
 
     @Value("${jwt_configs.refresh_token_validity_ms}")
     private long refreshTokenValidityInMs;
+
+    private final PasswordEncoder encoder;
 
     private final AuthenticationManager authenticationManager;
 
@@ -54,6 +59,9 @@ public class AuthService {
             Pair<String, String> data = jwtTokenProvider.getAuthentication(refreshTokenRequest.getRefreshToken());
             SecurityUser user = (SecurityUser) userDetailsService.loadUserByUsername(data.getFirst());
             if (user != null) {
+                if (!user.isEnabled()) {
+                    throw new DisabledException("account.not.active");
+                }
                 Authentication auth = new UsernamePasswordAuthenticationToken(user, data.getSecond(), user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
                 return generateTokens(auth);
