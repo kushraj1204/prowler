@@ -35,7 +35,7 @@ public class SystemUserController {
         List<SystemUserDto> response= service.getAll();
         ApiResponse<List<SystemUserDto>> apiResponse =  new ApiResponse<List<SystemUserDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -47,7 +47,7 @@ public class SystemUserController {
         Page<SystemUserDto> response= service.getPage(pageable);
         ApiResponse<Page<SystemUserDto>> apiResponse =  new ApiResponse<Page<SystemUserDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -56,7 +56,7 @@ public class SystemUserController {
         SystemUserDto response= service.create(createRequest);
         ApiResponse<SystemUserDto> apiResponse =  new ApiResponse<SystemUserDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -66,7 +66,7 @@ public class SystemUserController {
         SystemUserDto response= service.getById(id);
         ApiResponse<SystemUserDto> apiResponse =  new ApiResponse<SystemUserDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -77,7 +77,7 @@ public class SystemUserController {
         SystemUserDto response= service.update(id,updateRequest);
         ApiResponse<SystemUserDto> apiResponse =  new ApiResponse<SystemUserDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -86,7 +86,7 @@ public class SystemUserController {
         boolean response= service.delete(id);
         ApiResponse<Boolean> apiResponse =  new ApiResponse<Boolean>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005.getDescription(),new String[]{"sys-user"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005,new String[]{"sys-user"}));
         return ResponseEntity.ok(apiResponse);
     }
 

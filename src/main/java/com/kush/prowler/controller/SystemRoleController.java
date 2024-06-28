@@ -35,7 +35,7 @@ public class SystemRoleController {
         List<SystemRoleDto> response= service.getAll();
         ApiResponse<List<SystemRoleDto>> apiResponse =  new ApiResponse<List<SystemRoleDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -47,7 +47,7 @@ public class SystemRoleController {
         Page<SystemRoleDto> response= service.getPage(pageable);
         ApiResponse<Page<SystemRoleDto>> apiResponse =  new ApiResponse<Page<SystemRoleDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -56,7 +56,7 @@ public class SystemRoleController {
         SystemRoleDto response= service.create(createRequest);
         ApiResponse<SystemRoleDto> apiResponse =  new ApiResponse<SystemRoleDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -66,7 +66,7 @@ public class SystemRoleController {
         SystemRoleDto response= service.getById(id);
         ApiResponse<SystemRoleDto> apiResponse =  new ApiResponse<SystemRoleDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -77,7 +77,7 @@ public class SystemRoleController {
         SystemRoleDto response= service.update(id,updateRequest);
         ApiResponse<SystemRoleDto> apiResponse =  new ApiResponse<SystemRoleDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -86,7 +86,7 @@ public class SystemRoleController {
         boolean response= service.delete(id);
         ApiResponse<Boolean> apiResponse =  new ApiResponse<Boolean>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005.getDescription(),new String[]{"sys-role"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005,new String[]{"sys-role"}));
         return ResponseEntity.ok(apiResponse);
     }
 

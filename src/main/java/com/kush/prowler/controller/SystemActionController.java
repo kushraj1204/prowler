@@ -35,7 +35,7 @@ public class SystemActionController {
         List<SystemActionDto> response= service.getAll();
         ApiResponse<List<SystemActionDto>> apiResponse =  new ApiResponse<List<SystemActionDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -47,7 +47,7 @@ public class SystemActionController {
         Page<SystemActionDto> response= service.getPage(pageable);
         ApiResponse<Page<SystemActionDto>> apiResponse =  new ApiResponse<Page<SystemActionDto>>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20001,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -56,7 +56,7 @@ public class SystemActionController {
         SystemActionDto response= service.create(createRequest);
         ApiResponse<SystemActionDto> apiResponse =  new ApiResponse<SystemActionDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20002,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -66,7 +66,7 @@ public class SystemActionController {
         SystemActionDto response= service.getById(id);
         ApiResponse<SystemActionDto> apiResponse =  new ApiResponse<SystemActionDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20003,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
 
     }
@@ -77,7 +77,7 @@ public class SystemActionController {
         SystemActionDto response= service.update(id,updateRequest);
         ApiResponse<SystemActionDto> apiResponse =  new ApiResponse<SystemActionDto>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20004,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -86,7 +86,7 @@ public class SystemActionController {
         boolean response= service.delete(id);
         ApiResponse<Boolean> apiResponse =  new ApiResponse<Boolean>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005.getDescription(),new String[]{"sys-action"}));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20005,new String[]{"sys-action"}));
         return ResponseEntity.ok(apiResponse);
     }
 

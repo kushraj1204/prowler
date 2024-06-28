@@ -36,7 +36,7 @@ public class AuthController {
                     (data.getUsername(), data.getPassword()));
         ApiResponse<AuthenticationResponse> apiResponse =  new ApiResponse<AuthenticationResponse>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20007.getDescription()));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20007));
         return ResponseEntity.ok(apiResponse);
     }
 
@@ -47,7 +47,7 @@ public class AuthController {
         AuthenticationResponse response = service.authenticateRefreshToken(data);
         ApiResponse<AuthenticationResponse> apiResponse =  new ApiResponse<AuthenticationResponse>();
         apiResponse.setResponseData(response);
-        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20007.getDescription()));
+        apiResponse.setMessage(messagingService.getResponseMessage(AppStatusCode.S20007));
         return ResponseEntity.ok(apiResponse);
     }
 }

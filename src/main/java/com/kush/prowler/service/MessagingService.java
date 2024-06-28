@@ -1,6 +1,7 @@
 package com.kush.prowler.service;
 
 import com.kush.prowler.exception.ServiceException;
+import com.kush.prowler.model.AppStatusCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -34,8 +35,17 @@ public class MessagingService {
                 LocaleContextHolder.getLocale());
     }
 
+    public String getResponseMessage(AppStatusCode appStatusCode, String[] args) {
+        return getResponseMessage(appStatusCode.getDescription(),args);
+    }
+
     public String getResponseMessage(String mainArg) {
 
         return getResponseMessage(mainArg,new String[]{});
+    }
+
+    public String getResponseMessage(AppStatusCode appStatusCode) {
+
+        return getResponseMessage(appStatusCode.getDescription());
     }
 }
