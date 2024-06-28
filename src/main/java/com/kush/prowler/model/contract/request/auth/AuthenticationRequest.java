@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AuthenticationRequest implements Serializable {
 
     @NotBlank(message = "should not be empty")

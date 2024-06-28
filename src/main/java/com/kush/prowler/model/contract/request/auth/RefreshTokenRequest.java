@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RefreshTokenRequest implements Serializable {
 
     @NotBlank(message = "should not be empty")
