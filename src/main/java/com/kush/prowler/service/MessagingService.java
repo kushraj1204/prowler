@@ -33,4 +33,9 @@ public class MessagingService {
                 allArguments,
                 LocaleContextHolder.getLocale());
     }
+
+    public String getResponseMessage(String mainArg) {
+
+        return getResponseMessage(mainArg,new String[]{});
+    }
 }

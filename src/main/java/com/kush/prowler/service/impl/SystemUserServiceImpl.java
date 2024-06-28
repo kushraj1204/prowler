@@ -6,15 +6,13 @@ import com.kush.prowler.model.AppStatusCode;
 import com.kush.prowler.model.contract.dto.SystemUserDto;
 import com.kush.prowler.model.contract.request.user.SystemUserCreateRequest;
 import com.kush.prowler.model.contract.request.user.SystemUserUpdateRequest;
-import com.kush.prowler.model.entity.SystemRole;
+import com.kush.prowler.model.SecurityUser;
 import com.kush.prowler.model.entity.SystemUser;
 import com.kush.prowler.repository.SystemUserRepository;
 import com.kush.prowler.service.SystemUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author kush
@@ -30,30 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class SystemUserServiceImpl implements UserDetailsService, SystemUserService {
+public class SystemUserServiceImpl implements SystemUserService {
 
     private final SystemUserRepository repository;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SystemUser> systemUserOpt= repository.findByUsername(username);
-        if(systemUserOpt.isPresent()){
-            Set<SystemRole> roles=systemUserOpt.get().getRoles();
-            Set<String> actions=roles.stream()
-                    .flatMap(role -> role.getActions().stream())
-                    .collect(Collectors.toSet());
-            Collection<SimpleGrantedAuthority> directAuthorities=actions.stream()
-                    .map(SimpleGrantedAuthority::new).toList();
-            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>(directAuthorities);
-            return new User(systemUserOpt.get().getUsername(),
-                    systemUserOpt.get().getPassword(),
-                    systemUserOpt.get().isEnabled(),
-                    systemUserOpt.get().isAccountNonExpired(),
-                    systemUserOpt.get().isCredentialNonExpired(),
-                    systemUserOpt.get().isAccountNonLocked(), authorities);
-        }
-        else throw new UsernameNotFoundException(username);
-    }
 
 
     @Override
