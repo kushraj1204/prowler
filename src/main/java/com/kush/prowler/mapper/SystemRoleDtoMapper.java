@@ -17,11 +17,11 @@ public interface SystemRoleDtoMapper {
     SystemRoleDtoMapper MAPPER =
             Mappers.getMapper(SystemRoleDtoMapper.class);
 
-    SystemRole roleCreateRequestToSystemRole(SystemRoleCreateRequest request);
-    SystemRole roleUpdateRequestToSystemRole(SystemRoleUpdateRequest request);
+    SystemRole dtoToEntity(SystemRoleCreateRequest request);
+    SystemRole dtoToEntity(SystemRoleUpdateRequest request);
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "lastModifiedBy", ignore = true)
-    SystemRoleDto systemRoleToDto(SystemRole role);
+    SystemRoleDto entityToDto(SystemRole role);
 
 
 }

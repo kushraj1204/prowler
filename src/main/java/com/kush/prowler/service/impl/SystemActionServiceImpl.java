@@ -32,14 +32,14 @@ public class SystemActionServiceImpl implements SystemActionService {
     @Override
     public Page<SystemActionDto> getPage(Pageable pageable) {
         Page<SystemAction> actionPage = repository.findAll(pageable);
-        return actionPage.map(SystemActionDtoMapper.MAPPER::systemActionToDto);
+        return actionPage.map(SystemActionDtoMapper.MAPPER::entityToDto);
     }
 
     @Override
     public List<SystemActionDto> getAll() {
         return repository.findAll()
                 .stream()
-                .map(SystemActionDtoMapper.MAPPER::systemActionToDto)
+                .map(SystemActionDtoMapper.MAPPER::entityToDto)
                 .toList();
     }
 
@@ -47,7 +47,7 @@ public class SystemActionServiceImpl implements SystemActionService {
     public SystemActionDto getById(Long id) {
         Optional<SystemAction> sysActionOpt=getSystemActionById(id);
         if(sysActionOpt.isPresent()){
-            return SystemActionDtoMapper.MAPPER.systemActionToDto(sysActionOpt.get());
+            return SystemActionDtoMapper.MAPPER.entityToDto(sysActionOpt.get());
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "sys-action","id = "+id.toString());
@@ -56,9 +56,9 @@ public class SystemActionServiceImpl implements SystemActionService {
 
     @Override
     public SystemActionDto create(SystemActionCreateRequest createRequest) {
-        SystemAction action=SystemActionDtoMapper.MAPPER.actionCreateRequestToSystemAction(createRequest);
+        SystemAction action=SystemActionDtoMapper.MAPPER.dtoToEntity(createRequest);
         SystemAction savedAction=repository.save(action);
-        return SystemActionDtoMapper.MAPPER.systemActionToDto(savedAction);
+        return SystemActionDtoMapper.MAPPER.entityToDto(savedAction);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class SystemActionServiceImpl implements SystemActionService {
             action.setCode(updateRequest.getCode());
             action.setDescription(updateRequest.getDescription());
             SystemAction savedAction=repository.save(action);
-            return SystemActionDtoMapper.MAPPER.systemActionToDto(savedAction);
+            return SystemActionDtoMapper.MAPPER.entityToDto(savedAction);
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "role");
@@ -89,7 +89,7 @@ public class SystemActionServiceImpl implements SystemActionService {
     public SystemActionDto getByCode(String code) {
         Optional<SystemAction> sysActionOpt=getSystemActionByCode(code);
         if(sysActionOpt.isPresent()){
-            return SystemActionDtoMapper.MAPPER.systemActionToDto(sysActionOpt.get());
+            return SystemActionDtoMapper.MAPPER.entityToDto(sysActionOpt.get());
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "sys-action","code = "+code);

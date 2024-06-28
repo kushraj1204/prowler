@@ -17,11 +17,11 @@ public interface SystemActionDtoMapper {
     SystemActionDtoMapper MAPPER =
             Mappers.getMapper(SystemActionDtoMapper.class);
 
-    SystemAction actionCreateRequestToSystemAction(SystemActionCreateRequest request);
-    SystemAction actionUpdateRequestToSystemAction(SystemActionUpdateRequest request);
+    SystemAction dtoToEntity(SystemActionCreateRequest request);
+    SystemAction dtoToEntity(SystemActionUpdateRequest request);
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "lastModifiedBy", ignore = true)
-    SystemActionDto systemActionToDto(SystemAction action);
+    SystemActionDto entityToDto(SystemAction action);
 
 
 }

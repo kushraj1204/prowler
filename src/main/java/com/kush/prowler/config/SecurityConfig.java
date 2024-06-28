@@ -45,7 +45,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(16);
     }
 
 
@@ -56,12 +56,12 @@ public class SecurityConfig {
             String username = authentication.getPrincipal() + "";
             String password = authentication.getCredentials() + "";
             SecurityUser user = (SecurityUser) userDetailsService.loadUserByUsername(username);
-           /* if (!encoder.matches(password, user.getPassword())) {
+            if (!encoder.matches(password, user.getPassword())) {
                 throw new BadCredentialsException("bad.credentials");
             }
             if (!user.isEnabled()) {
                 throw new DisabledException("account.not.active");
-            }*/
+            }
             return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         };
     }

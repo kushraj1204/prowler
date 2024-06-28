@@ -6,16 +6,12 @@ import com.kush.prowler.model.AppStatusCode;
 import com.kush.prowler.model.contract.dto.SystemUserDto;
 import com.kush.prowler.model.contract.request.user.SystemUserCreateRequest;
 import com.kush.prowler.model.contract.request.user.SystemUserUpdateRequest;
-import com.kush.prowler.model.SecurityUser;
 import com.kush.prowler.model.entity.SystemUser;
 import com.kush.prowler.repository.SystemUserRepository;
 import com.kush.prowler.service.SystemUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,14 +31,14 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public Page<SystemUserDto> getPage(Pageable pageable) {
         Page<SystemUser> page = repository.findAll(pageable);
-        return page.map(SystemUserDtoMapper.MAPPER::systemUserToDto);
+        return page.map(SystemUserDtoMapper.MAPPER::entityToDto);
     }
 
     @Override
     public List<SystemUserDto> getAll() {
         return repository.findAll()
                 .stream()
-                .map(SystemUserDtoMapper.MAPPER::systemUserToDto)
+                .map(SystemUserDtoMapper.MAPPER::entityToDto)
                 .toList();
     }
 
@@ -50,7 +46,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     public SystemUserDto getById(Long id) {
         Optional<SystemUser> sysUserOpt= getSystemUserById(id);
         if(sysUserOpt.isPresent()){
-            return SystemUserDtoMapper.MAPPER.systemUserToDto(sysUserOpt.get());
+            return SystemUserDtoMapper.MAPPER.entityToDto(sysUserOpt.get());
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "user");
@@ -59,9 +55,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public SystemUserDto create(SystemUserCreateRequest createRequest) {
-        SystemUser user=SystemUserDtoMapper.MAPPER.createRequestToSystemUser(createRequest);
+        SystemUser user=SystemUserDtoMapper.MAPPER.dtoToEntity(createRequest);
         SystemUser savedUser=repository.save(user);
-        return SystemUserDtoMapper.MAPPER.systemUserToDto(savedUser);
+        return SystemUserDtoMapper.MAPPER.entityToDto(savedUser);
     }
 
     @Override
@@ -73,7 +69,7 @@ public class SystemUserServiceImpl implements SystemUserService {
             user.setEmail(updateRequest.getEmail());
             user.setEnabled(updateRequest.isEnabled());
             SystemUser savedUser=repository.save(user);
-            return SystemUserDtoMapper.MAPPER.systemUserToDto(savedUser);
+            return SystemUserDtoMapper.MAPPER.entityToDto(savedUser);
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "user");

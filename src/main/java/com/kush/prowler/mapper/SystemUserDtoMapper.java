@@ -17,11 +17,11 @@ public interface SystemUserDtoMapper {
     SystemUserDtoMapper MAPPER =
             Mappers.getMapper(SystemUserDtoMapper.class);
 
-    SystemUser createRequestToSystemUser(SystemUserCreateRequest request);
-    SystemUser updateRequestToSystemUser(SystemUserUpdateRequest request);
+    SystemUser dtoToEntity(SystemUserCreateRequest request);
+    SystemUser dtoToEntity(SystemUserUpdateRequest request);
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "lastModifiedBy", ignore = true)
-    SystemUserDto systemUserToDto(SystemUser user);
+    SystemUserDto entityToDto(SystemUser user);
 
 
 }

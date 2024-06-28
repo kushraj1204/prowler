@@ -32,14 +32,14 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public Page<SystemRoleDto> getPage(Pageable pageable) {
         Page<SystemRole> page = repository.findAll(pageable);
-        return page.map(SystemRoleDtoMapper.MAPPER::systemRoleToDto);
+        return page.map(SystemRoleDtoMapper.MAPPER::entityToDto);
     }
 
     @Override
     public List<SystemRoleDto> getAll() {
         return repository.findAll()
                 .stream()
-                .map(SystemRoleDtoMapper.MAPPER::systemRoleToDto)
+                .map(SystemRoleDtoMapper.MAPPER::entityToDto)
                 .toList();
     }
 
@@ -47,7 +47,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     public SystemRoleDto getById(Long id) {
         Optional<SystemRole> sysRoleOpt= getSystemRoleById(id);
         if(sysRoleOpt.isPresent()){
-            return SystemRoleDtoMapper.MAPPER.systemRoleToDto(sysRoleOpt.get());
+            return SystemRoleDtoMapper.MAPPER.entityToDto(sysRoleOpt.get());
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "role",id.toString());
@@ -56,9 +56,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Override
     public SystemRoleDto create(SystemRoleCreateRequest createRequest) {
-        SystemRole role=SystemRoleDtoMapper.MAPPER.roleCreateRequestToSystemRole(createRequest);
+        SystemRole role=SystemRoleDtoMapper.MAPPER.dtoToEntity(createRequest);
         SystemRole savedRole=repository.save(role);
-        return SystemRoleDtoMapper.MAPPER.systemRoleToDto(savedRole);
+        return SystemRoleDtoMapper.MAPPER.entityToDto(savedRole);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
             role.setDescription(updateRequest.getDescription());
             role.setActions(updateRequest.getActions());
             SystemRole savedRole=repository.save(role);
-            return SystemRoleDtoMapper.MAPPER.systemRoleToDto(savedRole);
+            return SystemRoleDtoMapper.MAPPER.entityToDto(savedRole);
         }
         else {
             throw ServiceException.of(AppStatusCode.E40000, "role");
